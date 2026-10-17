@@ -1,0 +1,8 @@
+{
+  "name": "AthanAlarm2-iOS",
+  "description": "Native iOS companion app for AthanAlarm2: accurate offline Islamic prayer times, Athan notifications, Qibla compass, and widgets in SwiftUI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

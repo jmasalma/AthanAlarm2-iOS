@@ -1,0 +1,297 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+/* Begin PBXBuildFile section */
+		4B68D7130B02500710D40499 /* AthanAlarm2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA7C26AEBE978333D33C0E /* AthanAlarm2App.swift */; };
+		29A3800F76909DB5935901D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7E546399C0960B7E172B72 /* ContentView.swift */; };
+		8DD01D8DC2F8601307F9908E /* PrayerDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017EB113AA3F1C0423EA1091 /* PrayerDashboardView.swift */; };
+		0379C97E3F4D18BA335F54CE /* QiblaCompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA6F599ACB9DC8FCAE0E631 /* QiblaCompassView.swift */; };
+		8193CC82888613DD2CCEB9CE /* MonthlyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEC0300A7CC10AB560F9C85 /* MonthlyCalendarView.swift */; };
+		6A2B1370E0CD751B51282021 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084B8BEC7CC667E084BA903B /* SettingsView.swift */; };
+		BF7E912781DA18C2B81BD2B2 /* PrayerRowCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA715D50EDBF1F114BF7022 /* PrayerRowCard.swift */; };
+		C4C559D33D631374E96FE80F /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82CD51900DD3587AAEB1D3 /* AppSettings.swift */; };
+		1D440DF48BB70609AA90EB3E /* PrayerDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2BCB53B16FBA94EB37CAA /* PrayerDashboardViewModel.swift */; };
+		697DD11E01F0F4DE7CA62BB4 /* HijriDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964E62D6A456E3530224B50 /* HijriDateHelper.swift */; };
+		9B7F94840839970B6AB2DD06 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E886CD89A2FF2984D95 /* LocationManager.swift */; };
+		8B5CB7CBE294A78B8F7A4286 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2891706E822B08E617E7203E /* NotificationService.swift */; };
+		8FFFD5AB12F2027377C51528 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6280583323FB8C68BF83D /* AudioService.swift */; };
+		BD8F1CF9451B2F119F0C8396 /* PrayerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E889594B029BE2D24858DE9 /* PrayerModels.swift */; };
+		71FAE866F581B442AE597E14 /* PrayerCalculationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C815707C5A4639A8D3B32F7 /* PrayerCalculationEngine.swift */; };
+		4ED0EBF5FD8A428E7040D56C /* QiblaCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8C2F8E64A0FDBB07E3D55 /* QiblaCalculator.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4FF388F0337E4FD9434B3FA5 /* AthanAlarm2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AthanAlarm2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28D092CB124836459FA7E386 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AthanAlarm2/Info.plist"; sourceTree = "<group>"; };
+		DECA7C26AEBE978333D33C0E /* AthanAlarm2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/AthanAlarm2App.swift"; sourceTree = "<group>"; };
+		CA7E546399C0960B7E172B72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/ContentView.swift"; sourceTree = "<group>"; };
+		017EB113AA3F1C0423EA1091 /* PrayerDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/PrayerDashboardView.swift"; sourceTree = "<group>"; };
+		1BA6F599ACB9DC8FCAE0E631 /* QiblaCompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/QiblaCompassView.swift"; sourceTree = "<group>"; };
+		2BEC0300A7CC10AB560F9C85 /* MonthlyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/MonthlyCalendarView.swift"; sourceTree = "<group>"; };
+		084B8BEC7CC667E084BA903B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/SettingsView.swift"; sourceTree = "<group>"; };
+		6EA715D50EDBF1F114BF7022 /* PrayerRowCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/Components/PrayerRowCard.swift"; sourceTree = "<group>"; };
+		1C82CD51900DD3587AAEB1D3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Models/AppSettings.swift"; sourceTree = "<group>"; };
+		0BF2BCB53B16FBA94EB37CAA /* PrayerDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/ViewModels/PrayerDashboardViewModel.swift"; sourceTree = "<group>"; };
+		1964E62D6A456E3530224B50 /* HijriDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Services/HijriDateHelper.swift"; sourceTree = "<group>"; };
+		31D57E886CD89A2FF2984D95 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Services/LocationManager.swift"; sourceTree = "<group>"; };
+		2891706E822B08E617E7203E /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Services/NotificationService.swift"; sourceTree = "<group>"; };
+		2EE6280583323FB8C68BF83D /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Services/AudioService.swift"; sourceTree = "<group>"; };
+		1E889594B029BE2D24858DE9 /* PrayerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/AthanCore/PrayerModels.swift"; sourceTree = "<group>"; };
+		0C815707C5A4639A8D3B32F7 /* PrayerCalculationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/AthanCore/PrayerCalculationEngine.swift"; sourceTree = "<group>"; };
+		50C8C2F8E64A0FDBB07E3D55 /* QiblaCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/AthanCore/QiblaCalculator.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE91CC9E036ABFACFA19CC3D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5928955287B8089ED2177128 = {
+			isa = PBXGroup;
+			children = (
+				DECA7C26AEBE978333D33C0E /* AthanAlarm2App.swift */,
+				CA7E546399C0960B7E172B72 /* ContentView.swift */,
+				017EB113AA3F1C0423EA1091 /* PrayerDashboardView.swift */,
+				1BA6F599ACB9DC8FCAE0E631 /* QiblaCompassView.swift */,
+				2BEC0300A7CC10AB560F9C85 /* MonthlyCalendarView.swift */,
+				084B8BEC7CC667E084BA903B /* SettingsView.swift */,
+				6EA715D50EDBF1F114BF7022 /* PrayerRowCard.swift */,
+				1C82CD51900DD3587AAEB1D3 /* AppSettings.swift */,
+				0BF2BCB53B16FBA94EB37CAA /* PrayerDashboardViewModel.swift */,
+				1964E62D6A456E3530224B50 /* HijriDateHelper.swift */,
+				31D57E886CD89A2FF2984D95 /* LocationManager.swift */,
+				2891706E822B08E617E7203E /* NotificationService.swift */,
+				2EE6280583323FB8C68BF83D /* AudioService.swift */,
+				1E889594B029BE2D24858DE9 /* PrayerModels.swift */,
+				0C815707C5A4639A8D3B32F7 /* PrayerCalculationEngine.swift */,
+				50C8C2F8E64A0FDBB07E3D55 /* QiblaCalculator.swift */,
+				28D092CB124836459FA7E386 /* Info.plist */,
+				BF7A2D27A78D590BDEF15AF2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BF7A2D27A78D590BDEF15AF2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4FF388F0337E4FD9434B3FA5 /* AthanAlarm2.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CCCC93D1861E55E64F5E957E /* AthanAlarm2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFD04581184175117C78D9AC /* Build configuration list for PBXNativeTarget "AthanAlarm2" */;
+			buildPhases = (
+				40DC8CE8BD5844941450877D /* Sources */,
+				AE91CC9E036ABFACFA19CC3D /* Frameworks */,
+				A33D9219E7F69EB2D01024D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AthanAlarm2;
+			productName = AthanAlarm2;
+			productReference = 4FF388F0337E4FD9434B3FA5 /* AthanAlarm2.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A66F76201287FB320AFE2788 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+			};
+			buildConfigurationList = A6392603704BC67DABF5ACDA /* Build configuration list for PBXProject "AthanAlarm2" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5928955287B8089ED2177128;
+			productRefGroup = BF7A2D27A78D590BDEF15AF2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CCCC93D1861E55E64F5E957E /* AthanAlarm2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A33D9219E7F69EB2D01024D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		40DC8CE8BD5844941450877D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B68D7130B02500710D40499 /* AthanAlarm2App.swift in Sources */,
+				29A3800F76909DB5935901D7 /* ContentView.swift in Sources */,
+				8DD01D8DC2F8601307F9908E /* PrayerDashboardView.swift in Sources */,
+				0379C97E3F4D18BA335F54CE /* QiblaCompassView.swift in Sources */,
+				8193CC82888613DD2CCEB9CE /* MonthlyCalendarView.swift in Sources */,
+				6A2B1370E0CD751B51282021 /* SettingsView.swift in Sources */,
+				BF7E912781DA18C2B81BD2B2 /* PrayerRowCard.swift in Sources */,
+				C4C559D33D631374E96FE80F /* AppSettings.swift in Sources */,
+				1D440DF48BB70609AA90EB3E /* PrayerDashboardViewModel.swift in Sources */,
+				697DD11E01F0F4DE7CA62BB4 /* HijriDateHelper.swift in Sources */,
+				9B7F94840839970B6AB2DD06 /* LocationManager.swift in Sources */,
+				8B5CB7CBE294A78B8F7A4286 /* NotificationService.swift in Sources */,
+				8FFFD5AB12F2027377C51528 /* AudioService.swift in Sources */,
+				BD8F1CF9451B2F119F0C8396 /* PrayerModels.swift in Sources */,
+				71FAE866F581B442AE597E14 /* PrayerCalculationEngine.swift in Sources */,
+				4ED0EBF5FD8A428E7040D56C /* QiblaCalculator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D3F7E1332B6B89CC946A9F6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5679C1072468440DCC0739C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		386F21FB6CCFBF3FBFDA1CC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "AthanAlarm2/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jmasalma.athanalarm2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		99EA497894306B9F39FE5709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "AthanAlarm2/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jmasalma.athanalarm2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A6392603704BC67DABF5ACDA /* Build configuration list for PBXProject "AthanAlarm2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3F7E1332B6B89CC946A9F6B /* Debug */,
+				5679C1072468440DCC0739C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AFD04581184175117C78D9AC /* Build configuration list for PBXNativeTarget "AthanAlarm2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				386F21FB6CCFBF3FBFDA1CC3 /* Debug */,
+				99EA497894306B9F39FE5709 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A66F76201287FB320AFE2788 /* Project object */;
+}

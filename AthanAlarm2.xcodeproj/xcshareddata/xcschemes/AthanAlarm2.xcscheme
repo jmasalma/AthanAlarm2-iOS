@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E3EE5DCFEBE494E5114D32E7"
+               BlueprintIdentifier = "CCCC93D1861E55E64F5E957E"
                BuildableName = "AthanAlarm2.app"
                BlueprintName = "AthanAlarm2"
                ReferencedContainer = "container:AthanAlarm2.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E3EE5DCFEBE494E5114D32E7"
+            BlueprintIdentifier = "CCCC93D1861E55E64F5E957E"
             BuildableName = "AthanAlarm2.app"
             BlueprintName = "AthanAlarm2"
             ReferencedContainer = "container:AthanAlarm2.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E3EE5DCFEBE494E5114D32E7"
+            BlueprintIdentifier = "CCCC93D1861E55E64F5E957E"
             BuildableName = "AthanAlarm2.app"
             BlueprintName = "AthanAlarm2"
             ReferencedContainer = "container:AthanAlarm2.xcodeproj">

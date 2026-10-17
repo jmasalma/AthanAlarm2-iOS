@@ -29,7 +29,15 @@ jobs:
         fetch-depth: 0
 
     - name: Select Xcode Version
-      run: sudo xcode-select -switch /Applications/Xcode_15.4.app/Contents/Developer
+      run: |
+        if [ -d "/Applications/Xcode_16.app" ]; then
+          sudo xcode-select -switch /Applications/Xcode_16.app/Contents/Developer
+        elif [ -d "/Applications/Xcode_15.4.app" ]; then
+          sudo xcode-select -switch /Applications/Xcode_15.4.app/Contents/Developer
+        elif [ -d "/Applications/Xcode_15.app" ]; then
+          sudo xcode-select -switch /Applications/Xcode_15.app/Contents/Developer
+        fi
+        xcodebuild -version
 
     - name: Resolve Swift Package Dependencies
       run: |
@@ -41,21 +49,24 @@ jobs:
       run: |
         mkdir -p build-output
         xcodebuild archive \
+          -project AthanAlarm2.xcodeproj \
           -scheme AthanAlarm2 \
           -configuration Release \
           -destination 'generic/platform=iOS' \
           -archivePath build-output/AthanAlarm2.xcarchive \
           CODE_SIGNING_ALLOWED=NO \
           CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGN_IDENTITY=""
+          CODE_SIGN_IDENTITY="" \
+          AD_HOC_CODE_SIGNING_ALLOWED=YES
 
     - name: Package Sideloadable IPA (AltStore / TrollStore)
       run: |
         mkdir -p Payload
         cp -R build-output/AthanAlarm2.xcarchive/Products/Applications/*.app Payload/
-        zip -r AthanAlarm2.ipa Payload
+        zip -qr AthanAlarm2.ipa Payload
         mkdir -p release-artifacts
         mv AthanAlarm2.ipa release-artifacts/AthanAlarm2.ipa
+        ls -lh release-artifacts/
 
     - name: Upload IPA Artifact
       uses: actions/upload-artifact@v4

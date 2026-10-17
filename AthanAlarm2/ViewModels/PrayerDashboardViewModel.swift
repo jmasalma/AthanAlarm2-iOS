@@ -1,6 +1,8 @@
 import Foundation
 import Combine
+#if canImport(AthanCore)
 import AthanCore
+#endif
 
 public struct PrayerDisplayItem: Identifiable, Equatable {
     public var id: String { type.rawValue }

@@ -1,6 +1,8 @@
 import Foundation
 import Combine
+#if canImport(AthanCore)
 import AthanCore
+#endif
 
 public class AppSettings: ObservableObject {
     public static let shared = AppSettings()

@@ -1,6 +1,8 @@
 import Foundation
 import UserNotifications
+#if canImport(AthanCore)
 import AthanCore
+#endif
 
 public class NotificationService: NSObject, ObservableObject {
     public static let shared = NotificationService()

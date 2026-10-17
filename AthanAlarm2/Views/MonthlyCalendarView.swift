@@ -1,5 +1,7 @@
 import SwiftUI
+#if canImport(AthanCore)
 import AthanCore
+#endif
 
 public struct MonthlyCalendarView: View {
     @ObservedObject var settings: AppSettings

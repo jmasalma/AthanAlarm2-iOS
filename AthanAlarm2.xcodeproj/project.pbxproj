@@ -14,6 +14,7 @@
 		6A2B1370E0CD751B51282021 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084B8BEC7CC667E084BA903B /* SettingsView.swift */; };
 		BF7E912781DA18C2B81BD2B2 /* PrayerRowCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA715D50EDBF1F114BF7022 /* PrayerRowCard.swift */; };
 		C4C559D33D631374E96FE80F /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82CD51900DD3587AAEB1D3 /* AppSettings.swift */; };
+		CE9BBCBB54F9018A890F94E6 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5269CCCA8FE8DE5D55E544B /* ColorExtensions.swift */; };
 		1D440DF48BB70609AA90EB3E /* PrayerDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2BCB53B16FBA94EB37CAA /* PrayerDashboardViewModel.swift */; };
 		697DD11E01F0F4DE7CA62BB4 /* HijriDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1964E62D6A456E3530224B50 /* HijriDateHelper.swift */; };
 		9B7F94840839970B6AB2DD06 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D57E886CD89A2FF2984D95 /* LocationManager.swift */; };
@@ -22,11 +23,13 @@
 		BD8F1CF9451B2F119F0C8396 /* PrayerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E889594B029BE2D24858DE9 /* PrayerModels.swift */; };
 		71FAE866F581B442AE597E14 /* PrayerCalculationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C815707C5A4639A8D3B32F7 /* PrayerCalculationEngine.swift */; };
 		4ED0EBF5FD8A428E7040D56C /* QiblaCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8C2F8E64A0FDBB07E3D55 /* QiblaCalculator.swift */; };
+		15D754BE4775B455B0007B61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FD06CAA47F1E25A14B40098 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4FF388F0337E4FD9434B3FA5 /* AthanAlarm2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AthanAlarm2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28D092CB124836459FA7E386 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AthanAlarm2/Info.plist"; sourceTree = "<group>"; };
+		5FD06CAA47F1E25A14B40098 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "AthanAlarm2/Assets.xcassets"; sourceTree = "<group>"; };
 		DECA7C26AEBE978333D33C0E /* AthanAlarm2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/AthanAlarm2App.swift"; sourceTree = "<group>"; };
 		CA7E546399C0960B7E172B72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/ContentView.swift"; sourceTree = "<group>"; };
 		017EB113AA3F1C0423EA1091 /* PrayerDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/PrayerDashboardView.swift"; sourceTree = "<group>"; };
@@ -35,6 +38,7 @@
 		084B8BEC7CC667E084BA903B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/SettingsView.swift"; sourceTree = "<group>"; };
 		6EA715D50EDBF1F114BF7022 /* PrayerRowCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Views/Components/PrayerRowCard.swift"; sourceTree = "<group>"; };
 		1C82CD51900DD3587AAEB1D3 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Models/AppSettings.swift"; sourceTree = "<group>"; };
+		D5269CCCA8FE8DE5D55E544B /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Models/ColorExtensions.swift"; sourceTree = "<group>"; };
 		0BF2BCB53B16FBA94EB37CAA /* PrayerDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/ViewModels/PrayerDashboardViewModel.swift"; sourceTree = "<group>"; };
 		1964E62D6A456E3530224B50 /* HijriDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Services/HijriDateHelper.swift"; sourceTree = "<group>"; };
 		31D57E886CD89A2FF2984D95 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AthanAlarm2/Services/LocationManager.swift"; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 				084B8BEC7CC667E084BA903B /* SettingsView.swift */,
 				6EA715D50EDBF1F114BF7022 /* PrayerRowCard.swift */,
 				1C82CD51900DD3587AAEB1D3 /* AppSettings.swift */,
+				D5269CCCA8FE8DE5D55E544B /* ColorExtensions.swift */,
 				0BF2BCB53B16FBA94EB37CAA /* PrayerDashboardViewModel.swift */,
 				1964E62D6A456E3530224B50 /* HijriDateHelper.swift */,
 				31D57E886CD89A2FF2984D95 /* LocationManager.swift */,
@@ -75,6 +80,7 @@
 				1E889594B029BE2D24858DE9 /* PrayerModels.swift */,
 				0C815707C5A4639A8D3B32F7 /* PrayerCalculationEngine.swift */,
 				50C8C2F8E64A0FDBB07E3D55 /* QiblaCalculator.swift */,
+				5FD06CAA47F1E25A14B40098 /* Assets.xcassets */,
 				28D092CB124836459FA7E386 /* Info.plist */,
 				BF7A2D27A78D590BDEF15AF2 /* Products */,
 			);
@@ -141,6 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15D754BE4775B455B0007B61 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +166,7 @@
 				6A2B1370E0CD751B51282021 /* SettingsView.swift in Sources */,
 				BF7E912781DA18C2B81BD2B2 /* PrayerRowCard.swift in Sources */,
 				C4C559D33D631374E96FE80F /* AppSettings.swift in Sources */,
+				CE9BBCBB54F9018A890F94E6 /* ColorExtensions.swift in Sources */,
 				1D440DF48BB70609AA90EB3E /* PrayerDashboardViewModel.swift in Sources */,
 				697DD11E01F0F4DE7CA62BB4 /* HijriDateHelper.swift in Sources */,
 				9B7F94840839970B6AB2DD06 /* LocationManager.swift in Sources */,
@@ -181,6 +189,10 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				AD_HOC_CODE_SIGNING_ALLOWED = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -208,6 +220,10 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				AD_HOC_CODE_SIGNING_ALLOWED = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -227,6 +243,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				AD_HOC_CODE_SIGNING_ALLOWED = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
@@ -251,6 +271,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				AD_HOC_CODE_SIGNING_ALLOWED = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;

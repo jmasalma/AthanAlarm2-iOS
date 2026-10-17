@@ -1,5 +1,7 @@
 import SwiftUI
+#if canImport(AthanCore)
 import AthanCore
+#endif
 
 public struct PrayerDashboardView: View {
     @ObservedObject var viewModel: PrayerDashboardViewModel

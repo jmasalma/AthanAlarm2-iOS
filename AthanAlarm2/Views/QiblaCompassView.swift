@@ -1,6 +1,8 @@
 import SwiftUI
 import CoreLocation
+#if canImport(AthanCore)
 import AthanCore
+#endif
 
 public struct QiblaCompassView: View {
     @ObservedObject var settings: AppSettings

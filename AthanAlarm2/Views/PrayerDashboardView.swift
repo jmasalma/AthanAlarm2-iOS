@@ -69,17 +69,26 @@ public struct PrayerDashboardView: View {
 
                             Spacer()
 
-                            // Sound Preview Button
-                            Button(action: {
-                                if audioService.isPlaying {
-                                    audioService.stop()
-                                } else {
-                                    audioService.previewAthan()
+                            HStack(spacing: 12) {
+                                // AirPlay / Wireless Speaker Cast Button
+                                AirPlayButton()
+                                    .frame(width: 34, height: 34)
+                                    .padding(4)
+                                    .background(Color.white.opacity(0.15))
+                                    .clipShape(Circle())
+
+                                // Sound Preview Button
+                                Button(action: {
+                                    if audioService.isPlaying {
+                                        audioService.stop()
+                                    } else {
+                                        audioService.previewAthan()
+                                    }
+                                }) {
+                                    Image(systemName: audioService.isPlaying ? "stop.circle.fill" : "play.circle.fill")
+                                        .font(.system(size: 32))
+                                        .foregroundColor(Color(hex: "E6C280"))
                                 }
-                            }) {
-                                Image(systemName: audioService.isPlaying ? "stop.circle.fill" : "play.circle.fill")
-                                    .font(.system(size: 32))
-                                    .foregroundColor(Color(hex: "E6C280"))
                             }
                         }
 
@@ -225,6 +234,41 @@ public struct CitySelectionSheet: View {
     public var body: some View {
         NavigationView {
             List {
+                Section {
+                    Button(action: {
+                        LocationManager.shared.requestPermission()
+                        LocationManager.shared.startUpdatingLocation()
+                        if let loc = LocationManager.shared.userLocation {
+                            settings.selectedCity = City(
+                                name: "Current GPS Location",
+                                country: "Device Coordinates",
+                                latitude: loc.coordinate.latitude,
+                                longitude: loc.coordinate.longitude,
+                                timezone: Double(TimeZone.current.secondsFromGMT()) / 3600.0,
+                                timeZoneId: TimeZone.current.identifier
+                            )
+                            settings.useGPSLocation = true
+                            onSelected()
+                            dismiss()
+                        }
+                    }) {
+                        HStack(spacing: 10) {
+                            Image(systemName: "location.circle.fill")
+                                .font(.system(size: 20))
+                                .foregroundColor(Color(hex: "0E3A2F"))
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Use Current Location (GPS)")
+                                    .font(.headline)
+                                    .foregroundColor(Color(hex: "0E3A2F"))
+                                Text("Auto-detect coordinates for local prayer times")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+
                 Section(header: Text("Current Selected")) {
                     HStack {
                         VStack(alignment: .leading) {

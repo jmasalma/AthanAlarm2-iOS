@@ -2,13 +2,14 @@
 
 Native iOS companion app for **[AthanAlarm2](https://github.com/jmasalma/AthanAlarm2)** built with **SwiftUI**, **WidgetKit**, and **CoreLocation**.
 
-Provides 100% offline astronomical prayer time calculations, full Athan and chime notifications, interactive Qibla compass with real-time magnetic heading, monthly timetable calendars, and Home Screen widgets.
+Provides 100% offline astronomical prayer time calculations, full Athan and chime notifications, interactive Qibla compass with real-time magnetic heading, monthly timetable calendars, daily Adhkar & digital Tasbeeh counter, pre-prayer countdown reminders, and Home Screen widgets.
 
 ---
 
-## Features
+## Features (100% Matched to Android AthanAlarm2)
 
 - **Astronomical Offline Calculation**: Full offline implementation of the Jean Meeus solar position algorithm (matching the Android `AthanAlarm2` engine) with no external network requests needed.
+- **Alberta Permanent UTC-6 Support**: Automatically normalizes UTC-6 timezone for Calgary, Edmonton, and all Alberta coordinates from November 1, 2026 onwards.
 - **11 Calculation Methods**:
   - Islamic Society of North America (ISNA)
   - Muslim World League (MWL)
@@ -23,23 +24,38 @@ Provides 100% offline astronomical prayer time calculations, full Athan and chim
   - Union of Islamic Organisations of France
 - **Juristic Asr Methods**: Standard (Shafi'i, Maliki, Hanbali - shadow factor 1.0) and Hanafi (shadow factor 2.0).
 - **High Latitude Rules**: Middle of the Night, One-Seventh of the Night, Angle-Based, or None.
+- **Pre-Prayer Countdown Notifications**:
+  - Optional alert notification 5, 10, 15, 20, 25, or 30 minutes before each obligatory prayer
+  - Customizable sound options (Gentle chime, system notification, or silent)
+- **Hijri Moon Sighting Offset**:
+  - Adjust Islamic calendar date by -2 to +2 days to align with local regional moon sighting declarations.
+- **Adhkar & Supplications (Athkar) & Digital Tasbeeh**:
+  - Morning Adhkar (أذكار الصباح)
+  - Evening Adhkar (أذكار المساء)
+  - After Prayer Adhkar (أذكار بعد الصلاة)
+  - Sleeping Adhkar (أذكار النوم)
+  - Interactive tap counter with target progress and haptic vibration feedback
+  - Dedicated **Digital Tasbeeh** modal with 8 standard Dhikr presets (SubhanAllah, Alhamdulillah, Allahu Akbar, Astaghfirullah, etc.) and cycle tracking.
 - **Real-Time Qibla Compass**:
   - Great-circle bearing and geodesic distance to the Holy Kaaba in Makkah (21.422487° N, 39.826206° E)
   - Live magnetic compass rose rotating with device heading
-  - Golden Kaaba needle alignment indicator with haptic vibration when directly facing the Qibla (±3°)
-- **Prayer Alarms & Notifications**:
+  - Center Holy Kaaba emblem with alignment glow and haptic pulse when directly facing the Qibla (±3°)
+  - Dynamic status banner ("Turn left/right towards X°" / "You are facing the Kaaba!")
+  - Detailed readout card and figure-8 calibration tip
+- **Audio & Athan Management**:
+  - Built-in authentic MP3 audio files: `athan_general.mp3`, `athan_fajr.mp3`, and `athan_chime.mp3`
   - Per-prayer mode toggles: **Full Athan**, **Gentle Chime**, **Notification Only**, or **Muted**
-  - Foreground banner & sound presentation via `UserNotifications`
-  - Audio preview synthesizer for Athan and Chime tones
-- **Prayer Timetable Calendar**:
-  - Monthly prayer schedule table with Fajr, Sunrise, Dhuhr, Asr, Maghrib, and Isha
-  - Date navigation and Gregorian/Hijri date conversion (Umm Al-Qura calendar)
+  - Sound preview tester with stop/play controls
+- **Easter Egg**:
+  - Hidden easter egg in the Settings screen triggered by a rapid 7-tap sequence on the version row.
+- **Monthly Prayer Timetable**:
+  - Full monthly prayer schedule table with Fajr, Sunrise, Dhuhr, Asr, Maghrib, and Isha
+  - Date navigation, "Today" quick jump, and Gregorian/Hijri date conversion
 - **Home Screen & Lock Screen Widgets**:
   - Powered by **WidgetKit** with small and medium family layouts showing upcoming prayer and countdown minutes
 - **Flexible Location Support**:
   - Auto GPS location with `CoreLocation`
-  - Over 18 predefined global cities (Waterloo, Toronto, New York, London, Paris, Makkah, Madinah, Cairo, Istanbul, Dubai, etc.)
-  - Custom coordinates, elevation, and timezone adjustment
+  - Comprehensive list of Canadian, US, Middle Eastern, European, and worldwide preset cities
 
 ---
 
@@ -49,35 +65,40 @@ Provides 100% offline astronomical prayer time calculations, full Athan and chim
 ├── AthanAlarm2.xcodeproj/     # Pre-configured Xcode project & shared schemes
 ├── Sources/
 │   └── AthanCore/            # Core Swift calculation engine
-│       ├── PrayerCalculationEngine.swift  # Astronomical Meeus engine
-│       ├── PrayerModels.swift             # Models, methods, cities, enums
+│       ├── PrayerCalculationEngine.swift  # Astronomical Meeus engine + Alberta UTC-6
+│       ├── PrayerModels.swift             # Models, methods, comprehensive cities, enums
+│       ├── AthkarData.swift               # Adhkar categories, presets, and supplications
 │       └── QiblaCalculator.swift          # Spherical trigonometry bearing & distance
 ├── AthanAlarm2/              # SwiftUI Native iOS Application
 │   ├── AthanAlarm2App.swift  # App entry point & notification delegate
 │   ├── Info.plist            # App configuration & permissions
 │   ├── Models/
-│   │   └── AppSettings.swift # Persistent settings & user preferences
+│   │   ├── AppSettings.swift     # Persistent settings & user preferences
+│   │   └── ColorExtensions.swift # Color hex parsing extension
 │   ├── ViewModels/
 │   │   └── PrayerDashboardViewModel.swift # Reactive timer & prayer state
 │   ├── Services/
-│   │   ├── AudioService.swift         # Athan & chime audio playback
-│   │   ├── HijriDateHelper.swift      # Islamic calendar formatting
+│   │   ├── AudioService.swift         # Athan & chime audio playback (MP3 & synth)
+│   │   ├── HijriDateHelper.swift      # Islamic calendar with dayOffset
 │   │   ├── LocationManager.swift      # CoreLocation GPS & compass heading
-│   │   └── NotificationService.swift  # Local alarm scheduling
+│   │   └── NotificationService.swift  # Local alarm scheduling & pre-reminders
 │   ├── Views/
-│   │   ├── ContentView.swift          # TabView navigation shell
+│   │   ├── ContentView.swift          # TabView navigation shell (5 tabs)
 │   │   ├── PrayerDashboardView.swift  # Main prayer schedule & countdown
-│   │   ├── QiblaCompassView.swift     # Interactive Qibla compass
+│   │   ├── QiblaCompassView.swift     # Interactive Qibla compass & Kaaba emblem
+│   │   ├── AthkarView.swift           # Daily Adhkar and Digital Tasbeeh
 │   │   ├── MonthlyCalendarView.swift  # Monthly timetable view
-│   │   ├── SettingsView.swift         # Calculation & location options
+│   │   ├── SettingsView.swift         # Calculation, reminders, & easter egg
 │   │   └── Components/
 │   │       └── PrayerRowCard.swift    # Individual prayer row component
-│   └── Assets.xcassets/      # AppIcon asset catalog (1024x1024 universal)
+│   ├── Resources/
+│   │   └── Sounds/           # Bundled authentic audio (athan_general, athan_fajr, athan_chime)
+│   └── Assets.xcassets/      # AppIcon, Kaaba emblem, and Easter Egg assets
 ├── AthanAlarmWidgets/        # WidgetKit Extension
 │   ├── PrayerWidget.swift    # Small & Medium Home Screen widgets
 │   └── Info.plist            # Extension metadata
 ├── Tests/
-│   └── AthanCoreTests/       # XCTest unit tests for prayer & Qibla math
+│   └── AthanCoreTests/       # XCTest unit tests for prayer, Qibla, Alberta, & Athkar
 ├── Package.swift             # Swift Package Manager manifest
 └── .github/workflows/
     └── ios.yml               # Automated CI/CD workflow to build & release AthanAlarm2.ipa

@@ -24,6 +24,12 @@
     <true/>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>AthanAlarm2 requires your location to calculate precise local prayer times and provide real-time Qibla compass direction towards the Kaaba.</string>
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>AthanAlarm2 discovers nearby AirPlay, HomePod, and wireless speakers to broadcast the call to prayer.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>audio</string>
+    </array>
     <key>UILaunchScreen</key>
     <dict/>
     <key>UISupportedInterfaceOrientations</key>

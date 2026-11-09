@@ -63,7 +63,7 @@ public class PrayerDashboardViewModel: ObservableObject {
         let gregorianFormatter = DateFormatter()
         gregorianFormatter.dateStyle = .full
         self.currentGregorianDateString = gregorianFormatter.string(from: now)
-        self.currentHijriDateString = HijriDateHelper.formattedHijriDate(from: now)
+        self.currentHijriDateString = HijriDateHelper.formattedHijriDate(from: now, dayOffset: settings.hijriDayOffset)
 
         // Qibla
         self.qiblaBearing = QiblaCalculator.calculateBearing(fromLatitude: city.latitude, fromLongitude: city.longitude)
@@ -87,7 +87,10 @@ public class PrayerDashboardViewModel: ObservableObject {
         NotificationService.shared.schedulePrayerNotifications(
             result: result,
             alarmModes: settings.alarmModes,
-            city: city
+            city: city,
+            preReminderEnabled: settings.prePrayerReminderEnabled,
+            preReminderMinutes: settings.prePrayerReminderMinutes,
+            preReminderSound: settings.prePrayerReminderSound
         )
     }
 

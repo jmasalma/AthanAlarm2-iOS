@@ -154,60 +154,106 @@ public struct QiblaCompassView: View {
                     .rotationEffect(.degrees(relativeAngle))
                     .animation(.spring(response: 0.3, dampingFraction: 0.6), value: relativeAngle)
 
-                    // Center Hub
-                    Circle()
-                        .fill(Color(hex: "0E3A2F"))
-                        .frame(width: 20, height: 20)
-                        .overlay(
-                            Circle()
-                                .stroke(Color(hex: "E6C280"), lineWidth: 2)
-                        )
+                    // Center Kaaba Emblem matching Android QiblaScreen
+                    ZStack {
+                        Circle()
+                            .fill(Color(uiColor: .systemBackground))
+                            .frame(width: 70, height: 70)
+                            .overlay(
+                                Circle()
+                                    .stroke(isFacingQibla ? Color(hex: "E6C280") : Color(hex: "0E3A2F").opacity(0.4), lineWidth: isFacingQibla ? 3 : 1.5)
+                            )
+                            .shadow(color: Color.black.opacity(0.15), radius: 4)
+
+                        Image("ic_kaaba_qibla")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 48, height: 48)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
                 }
                 .frame(width: 300, height: 300)
 
                 Spacer()
 
-                // Facing status banner
-                if isFacingQibla {
-                    HStack(spacing: 8) {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 18))
-                        Text("You are facing the Qibla (Kaaba)!")
-                            .font(.system(size: 16, weight: .bold))
+                // Facing status banner matching Android QiblaStatusBanner
+                HStack(spacing: 8) {
+                    Image(systemName: isFacingQibla ? "checkmark.circle.fill" : "safari.fill")
+                        .font(.system(size: 18))
+                        .foregroundColor(isFacingQibla ? Color(hex: "E6C280") : Color(hex: "0E3A2F"))
+
+                    Text(isFacingQibla ? "You are facing the Kaaba!" : "Turn \(relativeAngle > 180 ? "left" : "right") towards \(String(format: "%.0f°", qiblaBearing))")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(isFacingQibla ? Color.white : .primary)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(isFacingQibla ? Color(hex: "0E3A2F") : Color(uiColor: .secondarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .shadow(color: isFacingQibla ? Color(hex: "0E3A2F").opacity(0.3) : Color.clear, radius: 8)
+                .onAppear {
+                    if isFacingQibla && !hasHapticTriggered {
+                        feedbackGenerator.impactOccurred()
+                        hasHapticTriggered = true
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background(Color(hex: "0E3A2F"))
-                    .foregroundColor(Color(hex: "E6C280"))
-                    .clipShape(Capsule())
-                    .shadow(radius: 6)
-                    .onAppear {
-                        if !hasHapticTriggered {
-                            feedbackGenerator.impactOccurred()
-                            hasHapticTriggered = true
-                        }
+                }
+                .onChange(of: isFacingQibla) { facing in
+                    if facing {
+                        feedbackGenerator.impactOccurred()
                     }
-                } else {
-                    Text("Rotate your device until the needle points straight up")
-                        .font(.system(size: 13))
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                        .onAppear {
-                            hasHapticTriggered = false
-                        }
                 }
 
-                // Coordinates card footer
-                VStack(spacing: 4) {
-                    Text("Kaaba coordinates: 21.4225° N, 39.8262° E")
-                        .font(.system(size: 11, weight: .medium))
+                // Qibla Details Card matching Android QiblaDetailsCard
+                HStack {
+                    VStack(spacing: 3) {
+                        Text("Qibla Angle")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(.secondary)
+                        Text(String(format: "%.1f°", qiblaBearing))
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(Color(hex: "0E3A2F"))
+                    }
+                    .frame(maxWidth: .infinity)
+
+                    Divider().frame(height: 32)
+
+                    VStack(spacing: 3) {
+                        Text("Heading")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(.secondary)
+                        Text(String(format: "%.0f°", locationManager.heading))
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.primary)
+                    }
+                    .frame(maxWidth: .infinity)
+
+                    Divider().frame(height: 32)
+
+                    VStack(spacing: 3) {
+                        Text("Distance")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(.secondary)
+                        Text("\(Int(round(distanceKm))) km")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(Color(hex: "B38B3F"))
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .padding(14)
+                .background(Color(uiColor: .secondarySystemGroupedBackground))
+                .cornerRadius(16)
+                .padding(.horizontal)
+
+                // Calibration Tip matching Android QiblaCalibrationTip
+                HStack(spacing: 6) {
+                    Image(systemName: "info.circle")
+                        .font(.system(size: 12))
                         .foregroundColor(.secondary)
-                    Text("Heading: \(String(format: "%.1f°", locationManager.heading))")
+                    Text("Hold phone flat. Wave in a figure-8 motion if needle drifts.")
                         .font(.system(size: 11))
                         .foregroundColor(.secondary)
                 }
-                .padding(.bottom, 20)
+                .padding(.bottom, 16)
             }
             .navigationTitle("Qibla")
             .navigationBarTitleDisplayMode(.inline)

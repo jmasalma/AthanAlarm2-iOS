@@ -13,17 +13,53 @@ public class AudioService: NSObject, ObservableObject, AVAudioPlayerDelegate {
         super.init()
     }
 
+    public func playSoundNamed(_ name: String, fileExtension: String = "mp3") {
+        stop()
+
+        // Attempt to find sound in main bundle
+        if let url = Bundle.main.url(forResource: name, withExtension: fileExtension) ??
+                     Bundle.main.url(forResource: name, withExtension: fileExtension, subdirectory: "Sounds") {
+            do {
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+                try AVAudioSession.sharedInstance().setActive(true)
+                player = try AVAudioPlayer(contentsOf: url)
+                player?.delegate = self
+                player?.play()
+                self.isPlaying = true
+                self.currentlyPlaying = name
+                return
+            } catch {
+                print("Failed to play audio file: \(error.localizedDescription)")
+            }
+        }
+
+        // Fallback to tone if MP3 not found in test or bundle environment
+        if name.contains("chime") {
+            playTone(frequency: 587.33, duration: 1.5)
+        } else {
+            previewSyntheticAthan()
+        }
+    }
+
+    public func previewAthan(forFajr: Bool = false) {
+        let soundName = forFajr ? "athan_fajr" : "athan_general"
+        playSoundNamed(soundName)
+    }
+
+    public func previewChime() {
+        playSoundNamed("athan_chime")
+    }
+
     public func playTone(frequency: Double, duration: TimeInterval) {
         stop()
 
-        // Generate synthetic gentle tone buffer
         let sampleRate = 44100.0
         let frameCount = Int(sampleRate * duration)
         var audioData = [Float](repeating: 0.0, count: frameCount)
 
         for i in 0..<frameCount {
             let progress = Double(i) / sampleRate
-            let envelope = sin(Double.pi * Double(i) / Double(frameCount)) // smooth fade-in and fade-out
+            let envelope = sin(Double.pi * Double(i) / Double(frameCount))
             audioData[i] = Float(sin(2.0 * Double.pi * frequency * progress) * envelope * 0.3)
         }
 
@@ -37,7 +73,6 @@ public class AudioService: NSObject, ObservableObject, AVAudioPlayerDelegate {
             }
         }
 
-        // Configure audio session
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
         try? AVAudioSession.sharedInstance().setActive(true)
 
@@ -50,17 +85,12 @@ public class AudioService: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
     }
 
-    public func previewChime() {
-        playTone(frequency: 587.33, duration: 1.5) // D5 chime
-    }
-
-    public func previewAthan() {
-        // Melodic sequence simulating Takbeer tone progression
+    private func previewSyntheticAthan() {
         let notes: [(freq: Double, dur: Double)] = [
-            (440.0, 0.4), // A4
-            (523.25, 0.5), // C5
-            (587.33, 0.7), // D5
-            (659.25, 0.6)  // E5
+            (440.0, 0.4),
+            (523.25, 0.5),
+            (587.33, 0.7),
+            (659.25, 0.6)
         ]
 
         var delay = 0.0

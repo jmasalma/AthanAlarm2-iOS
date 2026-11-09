@@ -42,6 +42,36 @@ final class AthanCoreTests: XCTestCase {
         XCTAssertLessThan(maghribMin, ishaMin)
     }
 
+    func testAlbertaTimezonePermanentUTC6() {
+        // Calgary: 51.0447, -114.0719
+        let calgary = City.cities.first { $0.name == "Calgary" }!
+        XCTAssertTrue(calgary.isAlberta())
+
+        // In November 2026 or later, timezone normalizes to -6.0 permanently
+        let tz = PrayerCalculationEngine.normalizeTimezoneForAlberta(
+            year: 2026,
+            month: 11,
+            day: 9,
+            latitude: calgary.latitude,
+            longitude: calgary.longitude,
+            timezone: -7.0
+        )
+        XCTAssertEqual(tz, -6.0)
+    }
+
+    func testAthkarRepositoryData() {
+        for category in AthkarCategory.allCases {
+            let items = AthkarRepository.getAthkar(category: category)
+            XCTAssertFalse(items.isEmpty)
+            for item in items {
+                XCTAssertFalse(item.arabic.isEmpty)
+                XCTAssertFalse(item.english.isEmpty)
+                XCTAssertGreaterThan(item.targetCount, 0)
+            }
+        }
+        XCTAssertFalse(AthkarRepository.tasbeehPresets.isEmpty)
+    }
+
     func testAllCalculationMethods() {
         let city = City.default
         let date = Date()

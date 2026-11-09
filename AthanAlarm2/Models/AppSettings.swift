@@ -43,26 +43,28 @@ public class AppSettings: ObservableObject {
         didSet { saveAlarmModes() }
     }
 
-    public static let predefinedCities: [City] = [
-        City(name: "Waterloo", country: "Canada", latitude: 43.4643, longitude: -80.5204, timezone: -5.0, elevation: 329.0, timeZoneId: "America/Toronto"),
-        City(name: "Toronto", country: "Canada", latitude: 43.6532, longitude: -79.3832, timezone: -5.0, elevation: 76.0, timeZoneId: "America/Toronto"),
-        City(name: "New York", country: "United States", latitude: 40.7128, longitude: -74.0060, timezone: -5.0, elevation: 10.0, timeZoneId: "America/New_York"),
-        City(name: "Chicago", country: "United States", latitude: 41.8781, longitude: -87.6298, timezone: -6.0, elevation: 181.0, timeZoneId: "America/Chicago"),
-        City(name: "Los Angeles", country: "United States", latitude: 34.0522, longitude: -118.2437, timezone: -8.0, elevation: 71.0, timeZoneId: "America/Los_Angeles"),
-        City(name: "London", country: "United Kingdom", latitude: 51.5074, longitude: -0.1278, timezone: 0.0, elevation: 11.0, timeZoneId: "Europe/London"),
-        City(name: "Paris", country: "France", latitude: 48.8566, longitude: 2.3522, timezone: 1.0, elevation: 35.0, timeZoneId: "Europe/Paris"),
-        City(name: "Makkah", country: "Saudi Arabia", latitude: 21.4225, longitude: 39.8262, timezone: 3.0, elevation: 277.0, timeZoneId: "Asia/Riyadh"),
-        City(name: "Madinah", country: "Saudi Arabia", latitude: 24.5247, longitude: 39.5692, timezone: 3.0, elevation: 608.0, timeZoneId: "Asia/Riyadh"),
-        City(name: "Cairo", country: "Egypt", latitude: 30.0444, longitude: 31.2357, timezone: 2.0, elevation: 23.0, timeZoneId: "Africa/Cairo"),
-        City(name: "Istanbul", country: "Turkey", latitude: 41.0082, longitude: 28.9784, timezone: 3.0, elevation: 40.0, timeZoneId: "Europe/Istanbul"),
-        City(name: "Dubai", country: "United Arab Emirates", latitude: 25.2048, longitude: 55.2708, timezone: 4.0, elevation: 5.0, timeZoneId: "Asia/Dubai"),
-        City(name: "Riyadh", country: "Saudi Arabia", latitude: 24.7136, longitude: 46.6753, timezone: 3.0, elevation: 612.0, timeZoneId: "Asia/Riyadh"),
-        City(name: "Karachi", country: "Pakistan", latitude: 24.8607, longitude: 67.0011, timezone: 5.0, elevation: 8.0, timeZoneId: "Asia/Karachi"),
-        City(name: "Kuala Lumpur", country: "Malaysia", latitude: 3.1390, longitude: 101.6869, timezone: 8.0, elevation: 22.0, timeZoneId: "Asia/Kuala_Lumpur"),
-        City(name: "Jakarta", country: "Indonesia", latitude: -6.2088, longitude: 106.8456, timezone: 7.0, elevation: 8.0, timeZoneId: "Asia/Jakarta"),
-        City(name: "Sydney", country: "Australia", latitude: -33.8688, longitude: 151.2093, timezone: 10.0, elevation: 19.0, timeZoneId: "Australia/Sydney"),
-        City(name: "Tokyo", country: "Japan", latitude: 35.6762, longitude: 139.6503, timezone: 9.0, elevation: 40.0, timeZoneId: "Asia/Tokyo")
-    ]
+    // New features matching Android AthanAlarm2
+    @Published public var athanSound: String {
+        didSet { UserDefaults.standard.set(athanSound, forKey: "athan_sound") }
+    }
+
+    @Published public var prePrayerReminderEnabled: Bool {
+        didSet { UserDefaults.standard.set(prePrayerReminderEnabled, forKey: "pre_reminder_enabled") }
+    }
+
+    @Published public var prePrayerReminderMinutes: Int {
+        didSet { UserDefaults.standard.set(prePrayerReminderMinutes, forKey: "pre_reminder_minutes") }
+    }
+
+    @Published public var prePrayerReminderSound: String {
+        didSet { UserDefaults.standard.set(prePrayerReminderSound, forKey: "pre_reminder_sound") }
+    }
+
+    @Published public var hijriDayOffset: Int {
+        didSet { UserDefaults.standard.set(hijriDayOffset, forKey: "hijri_day_offset") }
+    }
+
+    public static let predefinedCities: [City] = City.cities
 
     private init() {
         let defaults = UserDefaults.standard
@@ -117,10 +119,17 @@ public class AppSettings: ObservableObject {
                let mode = AlarmMode(rawValue: modeRaw) {
                 loadedModes[prayer] = mode
             } else {
-                loadedModes[prayer] = (prayer == .sunrise) ? .silent : .athan
+                loadedModes[prayer] = (prayer == .sunrise) ? .muted : .athan
             }
         }
         self.alarmModes = loadedModes
+
+        // Android parity settings
+        self.athanSound = defaults.string(forKey: "athan_sound") ?? "athan_general"
+        self.prePrayerReminderEnabled = defaults.bool(forKey: "pre_reminder_enabled")
+        self.prePrayerReminderMinutes = defaults.object(forKey: "pre_reminder_minutes") != nil ? defaults.integer(forKey: "pre_reminder_minutes") : 20
+        self.prePrayerReminderSound = defaults.string(forKey: "pre_reminder_sound") ?? "chime"
+        self.hijriDayOffset = defaults.integer(forKey: "hijri_day_offset")
     }
 
     public func cycleAlarmMode(for prayer: PrayerType) {

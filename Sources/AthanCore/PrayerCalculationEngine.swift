@@ -33,6 +33,22 @@ public struct PrayerCalculationResult {
 
 public enum PrayerCalculationEngine {
 
+    public static func normalizeTimezoneForAlberta(
+        year: Int,
+        month: Int,
+        day: Int,
+        latitude: Double,
+        longitude: Double,
+        timezone: Double
+    ) -> Double {
+        let isAlberta = (latitude >= 48.99 && latitude <= 60.01 && longitude >= -120.01 && longitude <= -109.99)
+        let isPermanentTimeActive = year > 2026 || (year == 2026 && (month > 11 || (month == 11 && day >= 1)))
+        if isAlberta && isPermanentTimeActive && timezone == -7.0 {
+            return -6.0
+        }
+        return timezone
+    }
+
     public static func calculate(
         date: Date,
         city: City,
@@ -53,8 +69,14 @@ public enum PrayerCalculationEngine {
         let month = comps.month ?? 10
         let day = comps.day ?? 1
 
-        let tzSeconds = cal.timeZone.secondsFromGMT(for: date)
-        let effectiveTimezone = Double(tzSeconds) / 3600.0
+        let effectiveTimezone = normalizeTimezoneForAlberta(
+            year: year,
+            month: month,
+            day: day,
+            latitude: city.latitude,
+            longitude: city.longitude,
+            timezone: city.getEffectiveTimezone(date: date)
+        )
 
         return calculateWithMeeus(
             year: year,

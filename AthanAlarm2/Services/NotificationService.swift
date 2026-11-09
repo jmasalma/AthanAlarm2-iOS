@@ -33,7 +33,10 @@ public class NotificationService: NSObject, ObservableObject {
     public func schedulePrayerNotifications(
         result: PrayerCalculationResult,
         alarmModes: [PrayerType: AlarmMode],
-        city: City
+        city: City,
+        preReminderEnabled: Bool = false,
+        preReminderMinutes: Int = 20,
+        preReminderSound: String = "chime"
     ) {
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
@@ -51,6 +54,39 @@ public class NotificationService: NSObject, ObservableObject {
             let mode = alarmModes[prayer] ?? .athan
             guard mode != .muted else { continue }
 
+            // 1. Pre-Prayer Countdown Reminder (e.g. 20 min before)
+            if preReminderEnabled && prayer.isSalat && preReminderMinutes > 0 {
+                let prayerTotalMin = (time.hour * 60) + time.minute
+                let preTotalMin = ((prayerTotalMin - preReminderMinutes) % 1440 + 1440) % 1440
+                let preHour = preTotalMin / 60
+                let preMinute = preTotalMin % 60
+
+                let preContent = UNMutableNotificationContent()
+                preContent.title = "\(prayer.englishName) in \(preReminderMinutes) Minutes"
+                preContent.body = "Prepare for \(prayer.englishName) prayer in \(city.name)."
+                preContent.categoryIdentifier = "PRE_PRAYER_REMINDER"
+
+                if preReminderSound != "silent" {
+                    preContent.sound = UNNotificationSound.default
+                } else {
+                    preContent.sound = nil
+                }
+
+                var preDateComponents = DateComponents()
+                preDateComponents.hour = preHour
+                preDateComponents.minute = preMinute
+                preDateComponents.second = 0
+
+                let preTrigger = UNCalendarNotificationTrigger(dateMatching: preDateComponents, repeats: true)
+                let preRequest = UNNotificationRequest(
+                    identifier: "pre_prayer_\(prayer.rawValue)",
+                    content: preContent,
+                    trigger: preTrigger
+                )
+                center.add(preRequest)
+            }
+
+            // 2. Exact Athan Alarm
             let content = UNMutableNotificationContent()
             content.title = "\(prayer.englishName) Time • \(prayer.arabicName)"
             content.body = "It is now time for \(prayer.englishName) in \(city.name)."

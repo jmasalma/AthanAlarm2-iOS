@@ -20,17 +20,23 @@ public struct ContentView: View {
                 }
                 .tag(1)
 
+            AthkarView()
+                .tabItem {
+                    Label("Adhkar", systemImage: "heart.text.square.fill")
+                }
+                .tag(2)
+
             MonthlyCalendarView(settings: settings)
                 .tabItem {
                     Label("Timetable", systemImage: "calendar")
                 }
-                .tag(2)
+                .tag(3)
 
             SettingsView(settings: settings)
                 .tabItem {
                     Label("Settings", systemImage: "gearshape.fill")
                 }
-                .tag(3)
+                .tag(4)
         }
         .accentColor(Color(hex: "0E3A2F"))
         .onAppear {

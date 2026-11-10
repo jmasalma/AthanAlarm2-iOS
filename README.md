@@ -19,9 +19,9 @@ Provides 100% offline astronomical prayer time calculations, full Athan and chim
   - Institute of Geophysics, Tehran
   - Gulf Region / UAE
   - Kuwait
-  - Qatar
-  - Diyanet İşleri Başkanlığı (Turkey)
-  - Union of Islamic Organisations of France
+   - Qatar
+   - Diyanet İşleri Başkanlığı (Turkey)
+   - Union of Islamic Organisations of France
 - **Juristic Asr Methods**: Standard (Shafi'i, Maliki, Hanbali - shadow factor 1.0) and Hanafi (shadow factor 2.0).
 - **High Latitude Rules**: Middle of the Night, One-Seventh of the Night, Angle-Based, or None.
 - **Pre-Prayer Countdown Notifications**:
@@ -29,13 +29,6 @@ Provides 100% offline astronomical prayer time calculations, full Athan and chim
   - Customizable sound options (Gentle chime, system notification, or silent)
 - **Hijri Moon Sighting Offset**:
   - Adjust Islamic calendar date by -2 to +2 days to align with local regional moon sighting declarations.
-- **Adhkar & Supplications (Athkar) & Digital Tasbeeh**:
-  - Morning Adhkar (أذكار الصباح)
-  - Evening Adhkar (أذكار المساء)
-  - After Prayer Adhkar (أذكار بعد الصلاة)
-  - Sleeping Adhkar (أذكار النوم)
-  - Interactive tap counter with target progress and haptic vibration feedback
-  - Dedicated **Digital Tasbeeh** modal with 8 standard Dhikr presets (SubhanAllah, Alhamdulillah, Allahu Akbar, Astaghfirullah, etc.) and cycle tracking.
 - **Real-Time Qibla Compass**:
   - Great-circle bearing and geodesic distance to the Holy Kaaba in Makkah (21.422487° N, 39.826206° E)
   - Live magnetic compass rose rotating with device heading
@@ -46,6 +39,8 @@ Provides 100% offline astronomical prayer time calculations, full Athan and chim
   - Built-in authentic MP3 audio files: `athan_general.mp3`, `athan_fajr.mp3`, and `athan_chime.mp3`
   - Per-prayer mode toggles: **Full Athan**, **Gentle Chime**, **Notification Only**, or **Muted**
   - Sound preview tester with stop/play controls
+- **AirPlay & Speaker Audio Streaming**:
+  - Native AirPlay audio route picker integration (`AVRoutePickerView`) for streaming Athan to AirPlay 2 devices, Apple TV, HomePod, and Bluetooth speakers.
 - **Easter Egg**:
   - Hidden easter egg in the Settings screen triggered by a rapid 7-tap sequence on the version row.
 - **Monthly Prayer Timetable**:
@@ -67,7 +62,6 @@ Provides 100% offline astronomical prayer time calculations, full Athan and chim
 │   └── AthanCore/            # Core Swift calculation engine
 │       ├── PrayerCalculationEngine.swift  # Astronomical Meeus engine + Alberta UTC-6
 │       ├── PrayerModels.swift             # Models, methods, comprehensive cities, enums
-│       ├── AthkarData.swift               # Adhkar categories, presets, and supplications
 │       └── QiblaCalculator.swift          # Spherical trigonometry bearing & distance
 ├── AthanAlarm2/              # SwiftUI Native iOS Application
 │   ├── AthanAlarm2App.swift  # App entry point & notification delegate
@@ -83,13 +77,13 @@ Provides 100% offline astronomical prayer time calculations, full Athan and chim
 │   │   ├── LocationManager.swift      # CoreLocation GPS & compass heading
 │   │   └── NotificationService.swift  # Local alarm scheduling & pre-reminders
 │   ├── Views/
-│   │   ├── ContentView.swift          # TabView navigation shell (5 tabs)
+│   │   ├── ContentView.swift          # TabView navigation shell (4 tabs)
 │   │   ├── PrayerDashboardView.swift  # Main prayer schedule & countdown
 │   │   ├── QiblaCompassView.swift     # Interactive Qibla compass & Kaaba emblem
-│   │   ├── AthkarView.swift           # Daily Adhkar and Digital Tasbeeh
 │   │   ├── MonthlyCalendarView.swift  # Monthly timetable view
-│   │   ├── SettingsView.swift         # Calculation, reminders, & easter egg
+│   │   ├── SettingsView.swift         # Calculation, reminders, speaker casting, & easter egg
 │   │   └── Components/
+│   │       ├── AirPlayButton.swift    # AVRoutePickerView wrapper for AirPlay
 │   │       └── PrayerRowCard.swift    # Individual prayer row component
 │   ├── Resources/
 │   │   └── Sounds/           # Bundled authentic audio (athan_general, athan_fajr, athan_chime)
@@ -98,7 +92,7 @@ Provides 100% offline astronomical prayer time calculations, full Athan and chim
 │   ├── PrayerWidget.swift    # Small & Medium Home Screen widgets
 │   └── Info.plist            # Extension metadata
 ├── Tests/
-│   └── AthanCoreTests/       # XCTest unit tests for prayer, Qibla, Alberta, & Athkar
+│   └── AthanCoreTests/       # XCTest unit tests for prayer calculations, Qibla, & Alberta rule
 ├── Package.swift             # Swift Package Manager manifest
 └── .github/workflows/
     └── ios.yml               # Automated CI/CD workflow to build & release AthanAlarm2.ipa

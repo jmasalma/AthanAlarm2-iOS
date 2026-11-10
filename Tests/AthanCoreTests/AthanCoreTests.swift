@@ -59,18 +59,6 @@ final class AthanCoreTests: XCTestCase {
         XCTAssertEqual(tz, -6.0)
     }
 
-    func testAthkarRepositoryData() {
-        for category in AthkarCategory.allCases {
-            let items = AthkarRepository.getAthkar(category: category)
-            XCTAssertFalse(items.isEmpty)
-            for item in items {
-                XCTAssertFalse(item.arabic.isEmpty)
-                XCTAssertFalse(item.english.isEmpty)
-                XCTAssertGreaterThan(item.targetCount, 0)
-            }
-        }
-        XCTAssertFalse(AthkarRepository.tasbeehPresets.isEmpty)
-    }
 
     func testAllCalculationMethods() {
         let city = City.default

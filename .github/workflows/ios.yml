@@ -9,13 +9,17 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch:
     inputs:
-      bump_type:
-        description: 'Version bump type (patch, minor, major, or auto)'
+      version_number:
+        description: 'Specific Version number (e.g. 1.2.3 or v1.2.3). Leave blank to auto-increment patch.'
         required: false
-        default: 'auto'
+        default: ''
+        type: string
+      bump_type:
+        description: 'If version number above is left blank, choose how to increment:'
+        required: false
+        default: 'patch'
         type: choice
         options:
-          - auto
           - patch
           - minor
           - major
@@ -37,7 +41,21 @@ jobs:
     - name: Calculate Next Version Number
       id: version_calc
       run: |
-        # Fetch all tags from origin if available
+        MANUAL_VERSION="${{ github.event.inputs.version_number }}"
+        MANUAL_VERSION=$(echo "$MANUAL_VERSION" | xargs)
+
+        # 1. If user explicitly entered a version number, use it directly
+        if [ -n "$MANUAL_VERSION" ]; then
+          # Strip leading 'v' if present for clean semantic numbers
+          CLEAN_VERSION="${MANUAL_VERSION#v}"
+          TAG="v${CLEAN_VERSION}"
+          echo "Using manually specified version: $TAG ($CLEAN_VERSION)"
+          echo "tag_name=$TAG" >> $GITHUB_OUTPUT
+          echo "release_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+
+        # 2. Otherwise, fetch git tags and calculate the next version
         git fetch --tags --force 2>/dev/null || true
 
         # Find latest semantic version tag
@@ -50,7 +68,7 @@ jobs:
 
         echo "Latest tag found: $LATEST_TAG"
 
-        # If current commit already has an exact tag, reuse it
+        # If current commit already has an exact tag, reuse it (only on push)
         EXACT_TAG=$(git tag --points-at HEAD | grep -E '^v[0-9]+' | head -n 1 || true)
         if [ -n "$EXACT_TAG" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
           echo "Current commit has exact tag: $EXACT_TAG"
@@ -67,16 +85,9 @@ jobs:
         PATCH=${PATCH:-0}
 
         BUMP_CHOICE="${{ github.event.inputs.bump_type }}"
-        if [ -z "$BUMP_CHOICE" ] || [ "$BUMP_CHOICE" = "auto" ]; then
-          # Determine bump from commit message
-          LAST_COMMIT_MSG=$(git log -1 --pretty=%B 2>/dev/null || echo "")
-          if echo "$LAST_COMMIT_MSG" | grep -qi "BREAKING CHANGE\|major:"; then
-            BUMP_CHOICE="major"
-          elif echo "$LAST_COMMIT_MSG" | grep -qi "feat:\|feature:"; then
-            BUMP_CHOICE="minor"
-          else
-            BUMP_CHOICE="patch"
-          fi
+        # Default to patch if blank
+        if [ -z "$BUMP_CHOICE" ]; then
+          BUMP_CHOICE="patch"
         fi
 
         case "$BUMP_CHOICE" in

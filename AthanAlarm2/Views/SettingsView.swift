@@ -202,7 +202,9 @@ public struct SettingsView: View {
                     }) {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("Athan Alarm v1.0.0")
+                                let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+                                let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+                                Text("Athan Alarm v\(appVersion) (\(buildNumber))")
                                     .font(.headline)
                                     .foregroundColor(.primary)
                                 Text("100% Free & Open Source • No Ads • No Tracking")

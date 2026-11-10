@@ -2,7 +2,7 @@
 
 Native iOS companion app for **[AthanAlarm2](https://github.com/jmasalma/AthanAlarm2)** built with **SwiftUI**, **WidgetKit**, and **CoreLocation**.
 
-Provides 100% offline astronomical prayer time calculations, full Athan and chime notifications, interactive Qibla compass with real-time magnetic heading, monthly timetable calendars, daily Adhkar & digital Tasbeeh counter, pre-prayer countdown reminders, and Home Screen widgets.
+Provides 100% offline astronomical prayer time calculations, full Athan and chime notifications, interactive Qibla compass with real-time magnetic heading, monthly timetable calendars, pre-prayer countdown reminders, and Home Screen widgets.
 
 ---
 

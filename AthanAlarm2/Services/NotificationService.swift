@@ -94,9 +94,13 @@ public class NotificationService: NSObject, ObservableObject {
 
             switch mode {
             case .athan:
-                content.sound = UNNotificationSound.default
+                if prayer == .fajr {
+                    content.sound = UNNotificationSound(named: UNNotificationSoundName("athan_fajr.mp3"))
+                } else {
+                    content.sound = UNNotificationSound(named: UNNotificationSoundName("athan_general.mp3"))
+                }
             case .chime:
-                content.sound = UNNotificationSound.default
+                content.sound = UNNotificationSound(named: UNNotificationSoundName("athan_chime.mp3"))
             case .silent, .muted:
                 content.sound = nil
             }

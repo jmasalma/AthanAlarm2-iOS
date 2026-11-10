@@ -9,10 +9,16 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch:
     inputs:
-      tag_name:
-        description: 'Release Tag version (e.g. v1.0.0). Leave as default to publish a release.'
+      bump_type:
+        description: 'Version bump type (patch, minor, major, or auto)'
         required: false
-        default: 'v1.0.0'
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
 
 permissions:
   contents: write
@@ -27,6 +33,71 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Calculate Next Version Number
+      id: version_calc
+      run: |
+        # Fetch all tags from origin if available
+        git fetch --tags --force 2>/dev/null || true
+
+        # Find latest semantic version tag
+        LATEST_TAG=$(git tag -l "v[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)
+
+        if [ -z "$LATEST_TAG" ]; then
+          # Fallback check for any v* tag
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
+        fi
+
+        echo "Latest tag found: $LATEST_TAG"
+
+        # If current commit already has an exact tag, reuse it
+        EXACT_TAG=$(git tag --points-at HEAD | grep -E '^v[0-9]+' | head -n 1 || true)
+        if [ -n "$EXACT_TAG" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+          echo "Current commit has exact tag: $EXACT_TAG"
+          echo "tag_name=$EXACT_TAG" >> $GITHUB_OUTPUT
+          echo "release_version=${EXACT_TAG#v}" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+
+        # Clean tag prefix
+        RAW_VERSION="${LATEST_TAG#v}"
+        IFS='.' read -r MAJOR MINOR PATCH <<< "$RAW_VERSION"
+        MAJOR=${MAJOR:-1}
+        MINOR=${MINOR:-0}
+        PATCH=${PATCH:-0}
+
+        BUMP_CHOICE="${{ github.event.inputs.bump_type }}"
+        if [ -z "$BUMP_CHOICE" ] || [ "$BUMP_CHOICE" = "auto" ]; then
+          # Determine bump from commit message
+          LAST_COMMIT_MSG=$(git log -1 --pretty=%B 2>/dev/null || echo "")
+          if echo "$LAST_COMMIT_MSG" | grep -qi "BREAKING CHANGE\|major:"; then
+            BUMP_CHOICE="major"
+          elif echo "$LAST_COMMIT_MSG" | grep -qi "feat:\|feature:"; then
+            BUMP_CHOICE="minor"
+          else
+            BUMP_CHOICE="patch"
+          fi
+        fi
+
+        case "$BUMP_CHOICE" in
+          major)
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+            ;;
+          minor)
+            MINOR=$((MINOR + 1))
+            PATCH=0
+            ;;
+          patch|*)
+            PATCH=$((PATCH + 1))
+            ;;
+        esac
+
+        NEXT_TAG="v${MAJOR}.${MINOR}.${PATCH}"
+        echo "Calculated next tag: $NEXT_TAG"
+        echo "tag_name=$NEXT_TAG" >> $GITHUB_OUTPUT
+        echo "release_version=${MAJOR}.${MINOR}.${PATCH}" >> $GITHUB_OUTPUT
 
     - name: Select Xcode Version
       run: |
@@ -54,6 +125,10 @@ jobs:
 
     - name: Build and Archive iOS App
       run: |
+        VERSION_NUMBER="${{ steps.version_calc.outputs.release_version }}"
+        BUILD_NUMBER="${{ github.run_number }}"
+        echo "Building AthanAlarm2 version $VERSION_NUMBER ($BUILD_NUMBER)..."
+
         mkdir -p build-output
         xcodebuild archive \
           -project AthanAlarm2.xcodeproj \
@@ -61,12 +136,14 @@ jobs:
           -configuration Release \
           -destination 'generic/platform=iOS' \
           -archivePath build-output/AthanAlarm2.xcarchive \
+          MARKETING_VERSION="$VERSION_NUMBER" \
+          CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
           CODE_SIGNING_ALLOWED=NO \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGN_IDENTITY="" \
           AD_HOC_CODE_SIGNING_ALLOWED=YES
 
-    - name: Package Sideloadable IPA (AltStore / TrollStore)
+    - name: Package Sideloadable IPA (AltStore / TrollStore / Sideloadly)
       run: |
         mkdir -p Payload
         cp -R build-output/AthanAlarm2.xcarchive/Products/Applications/*.app Payload/
@@ -78,14 +155,14 @@ jobs:
     - name: Upload IPA Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: AthanAlarm2-IPA
+        name: AthanAlarm2-${{ steps.version_calc.outputs.tag_name }}
         path: release-artifacts/AthanAlarm2.ipa
 
-    - name: Create GitHub Release
+    - name: Create GitHub Release & Tag
       uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && github.event.inputs.tag_name != '')
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
       with:
-        tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || github.event.inputs.tag_name }}
-        name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || github.event.inputs.tag_name }}
+        tag_name: ${{ steps.version_calc.outputs.tag_name }}
+        name: "AthanAlarm2 iOS ${{ steps.version_calc.outputs.tag_name }}"
         files: release-artifacts/AthanAlarm2.ipa
         generate_release_notes: true
